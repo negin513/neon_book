@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CTSM Simulations at NEON Tower Sites – Tutorial &#8212; NEON Workshop Tutorial Book</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Evaluating CLM Simulations at NEON Tower Sites – Tutorial" href="NEON_Visualization_Tutorial.html" />
+    <link rel="prev" title="Markdown Files" href="markdown.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/ncar_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NEON Workshop Tutorial Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="markdown.html">
+   Markdown Files
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   CTSM Simulations at NEON Tower Sites – Tutorial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NEON_Visualization_Tutorial.html">
+   Evaluating CLM Simulations at NEON Tower Sites – Tutorial
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/NEON_Simulation_Tutorial.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FNEON_Simulation_Tutorial.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=lab/tree/docs/NEON_Simulation_Tutorial.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#in-this-tutorial">
+   In this tutorial
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#congratulations">
+     Congratulations!
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="ctsm-simulations-at-neon-tower-sites-tutorial">
+<h1>CTSM Simulations at NEON Tower Sites – Tutorial<a class="headerlink" href="#ctsm-simulations-at-neon-tower-sites-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial is an introduction to running the Community Terrestrial Systems Model (CTSM) at NEON tower sites.  It will guide you through running a simulation and provides example visualization of the simulation results.</p>
+<p>There are several configuration options of CTSM, and throughout this tutorial we will use the Community Land Model (CLM) configuration which is the climate and biogeochemistry mode of CTSM. Throughout the rest of this tutorial, we refer to the model as CLM and will use version 5.1 with active biogeochemistry (CLM5.1-BGC).</p>
+<hr class="docutils" />
+<div class="section" id="in-this-tutorial">
+<h2>In this tutorial<a class="headerlink" href="#in-this-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>The tutorial has several components. Below you will find steps to:</p>
+<ol class="simple">
+<li><p>Set up and run a simulation</p></li>
+<li><p>Locate CLM model data</p></li>
+<li><p>Look at a plot of simulated soil temperature data</p></li>
+</ol>
+<hr class="docutils" />
+<p><strong>The tutorial uses a Jupyter Notebook.</strong> A Jupyter Notebook is an interactive computing environment that enables the creation and sharing of documents that contain discrete cells of text or documentation and executable code, including plots. It allows users to access, run, and edit the code in a browser. To interact with this notebook:</p>
+<ul class="simple">
+<li><p>Execute or “run” cells of executable code (cells denoted with ‘[ ]:’) using the play button in the menu at the top (see below image)</p></li>
+<li><p>The results of running code, such as plots, will appear below that cell</p></li>
+<li><p>Each step must be followed in order, otherwise you may encounter errors</p></li>
+</ul>
+<p><img alt="run cell" src="https://problemsolvingwithpython.com/02-Jupyter-Notebooks/images/run_cell.png" /></p>
+<p>For more information on Jupyter notebooks please see the <a class="reference external" href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html">Jupyter Notebook Quick Start Guide</a>.</p>
+<hr class="docutils" />
+<h2> 1. Set up and run a simulation</h2>
+<p><em>This step guides you through running a CLM model simulation for a NEON flux tower using meteorology observations from the tower. Here, the many steps to run CLM are condensed into a single function. If you would like a more advanced tutorial to change the model configuration or code, please see [tutorial coming soon] for additional instructions.</em> <br></p>
+<hr class="docutils" />
+<h4>1.1 Select a NEON tower site to simulate.</h4>
+<p>NEON towers currently available for simulation include:</p>
+<blockquote>
+<div><p>ABBY, BART, BLAN, CPER, DCFS, DSNY, GRSM, HARV, JERC, JORN, KONZ, MOAB, NOGP, OAES, ORNL, OSBS, SCBI, SERC, SOAP, SRER, STEI, TALL, TREE, UKFS, UNDE, WOOD.</p>
+</div></blockquote>
+<p>The <a class="reference external" href="https://www.neonscience.org/field-sites/explore-field-sites">NEON website</a> describes tower sites in more detail.</p>
+<p>Before running the below code, keep in mind:</p>
+<ul class="simple">
+<li><p>The executable code below selects the <strong>ABBY</strong> site for simulation. If you would like to simulate a different tower, select the NEON tower from the above list and change the 4-character site name inside the quotes below.</p></li>
+<li><p>The site must be defined correctly so you do not get an error in the next step.</p>
+<ul>
+<li><p>use all capital letters</p></li>
+<li><p>double-check that the letters match one of the above site names</p></li>
+</ul>
+</li>
+</ul>
+<p><em>Execute the the cell below by clicking on the play button in the menu bar above.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Change the 4-character NEON site below.</span>
+<span class="n">neon_site</span><span class="o">=</span> <span class="s2">&quot;ABBY&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;site&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">neon_site</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<h4>1.2 Create and run a NEON tower site simulation.</h4>  
+<p>The executable code below runs a python script, <code class="docutils literal notranslate"><span class="pre">run_neon.py</span></code>. This script:</p>
+<ul class="simple">
+<li><p>creates (<code class="docutils literal notranslate"><span class="pre">create_newcase</span></code>)</p></li>
+<li><p>sets up (<code class="docutils literal notranslate"><span class="pre">case.setup</span></code>)</p></li>
+<li><p>compiles (<code class="docutils literal notranslate"><span class="pre">case.build</span></code>)</p></li>
+<li><p>runs (<code class="docutils literal notranslate"><span class="pre">case.submit</span></code>)</p></li>
+</ul>
+<p>a simulation for the tower site you specified above for all years that tower meteorology data are available.</p>
+<p><em>Run the cell below.</em> Note that this step downloads the input data (~7GB) required for the model simulation. It may take several minutes to run, so please be patient. Many things will print below the cell as data are downloaded and the model compiles. You might see lines print that say ‘ERROR 404: Not Found’ and this is ok. You will also likely notice that many files are moved after the simulation completes.</p>
+<p><em>Note: we are working to update this code so that it prints fewer lines</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>run_neon --neon-sites $site --output-root ~/CLM-NEON
+</pre></div>
+</div>
+</div>
+</div>
+<p><br><br>The model is done running when you see:</p>
+<blockquote>
+<div><p>st_archive completed <br>
+Submitted job case.run with id None <br>
+Submitted job case.st_archive with id None <br></p>
+</div></blockquote>
+<p>If you see this message, great! You’ve created and run CLM for the NEON tower you selected, and we’ll look at simulated data next.</p>
+<p><strong>Note</strong> that you can also run the above line of code in your terminal shell but you will need to point to the location of the file where you specify the NEON site and the output-root path:</p>
+<p><code class="docutils literal notranslate"><span class="pre">run_neon.py</span> <span class="pre">--neon-sites</span> <span class="pre">&lt;site&gt;</span> <span class="pre">--output-root</span> <span class="pre">&lt;path&gt;</span></code></p>
+<p>More details about setting up and modifying simulations will be available in an upcoming tutorial.</p>
+<p>Additional information about CLM is available <a class="reference external" href="https://www.cesm.ucar.edu/models/cesm2/land/">on the website</a>, including <a class="reference external" href="https://escomp.github.io/ctsm-docs/versions/release-clm5.0/html/tech_note/index.html">technical documentation</a>, a <a class="reference external" href="https://escomp.github.io/ctsm-docs/versions/release-clm5.0/html/users_guide/index.html">user’s guide</a>, and a <a class="reference external" href="https://escomp.github.io/CESM/release-cesm2/quickstart.html#create-a-case">quickstart guide</a> to running other model configurations.
+<br><br></p>
+<hr class="docutils" />
+<h4> Optional </h4>
+<p>If you would like to see additional and more advanced options for running NEON tower site simulations, many are listed in the python script you just executed. You can use the <code class="docutils literal notranslate"><span class="pre">--help</span></code> option to see more. <p></p>
+<p><em>Executing the below cell is optional and will print options available options in the <code class="docutils literal notranslate"><span class="pre">run_neon</span></code> python script</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_neon</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<h2> 2. Explore CTSM model data </h2>
+<p><em>When your simulation completes, this step guides you through exploring the data.
+There are countless ways of analyzing and processing model data.
+The below steps show where model data were created and will create a plot from the model data.</em></p>
+<hr class="docutils" />
+<h3> 2.1 Locate model data </h3>
+<p>When a simulation completes, the data are transferred to the <code class="docutils literal notranslate"><span class="pre">archive</span></code> directory. In this directory, there are files that include data for every day of the simulation, as well as files that average model variables monthly. <p></p>
+<p><em>Run the code below to see a subset of the files listed.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls ~/archive/<span class="nv">$site</span>.transient/lnd/hist/*2018*.nc <span class="p">|</span>head -20
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-01.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-02.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-03.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-04.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-05.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-06.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-07.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-08.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-09.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-10.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-11.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h0.2018-12.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-01-00000.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-02-00000.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-03-00000.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-04-00000.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-05-00000.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-06-00000.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-07-00000.nc
+/home/user/archive/ABBY.transient/lnd/hist/ABBY.transient.clm2.h1.2018-01-08-00000.nc
+ls: write error: Broken pipe
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that each line includes the location of the file (<code class="docutils literal notranslate"><span class="pre">/home/user/archive/{simulation_name}/lnd/hist</span></code>) and file name. The file names are automatically generated and are composed of:</p>
+<ul class="simple">
+<li><p>the simulation name, which includes:</p>
+<ul>
+<li><p>the NEON site</p></li>
+<li><p>the type of simulation (here the simulation is “transient”, meaning the model ran for the full length of available data)</p></li>
+</ul>
+</li>
+<li><p>the date of simulated data</p></li>
+</ul>
+<p>The files are saved in netcdf format (denoted with the <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file extension), a file format commonly used for storing large, multi-dimensional scientific variables.
+Netcdf files are platform independent and self-describing; each file includes metadata that describes the data, including: <strong>variables</strong>, <strong>dimensions</strong>, and <strong>attributes</strong>. We will explore the files more in the NEON_Simple_Visualization_Tutorial</p>
+<p>The NEON tower simulations generate two types of files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*h0*</span></code>: Variables that are averaged monthly. One file is available for every month of the simulation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*h1*</span></code>: Variables that are recorded every 30 minutes. Values are aggregated into one file for each day of the simulation. Each file includes 48 data points.</p></li>
+</ul>
+<p><em>Note that you can also find the model data in the ‘Simulation’ folder on your desktop, which was created as part of this tutorial.</em></p>
+<hr class="docutils" />
+<h3>2.2 Visualize the output </h3>
+Below we create a plot of simulated soil temperature.
+<p>To do this, we use a predefined function, <code class="docutils literal notranslate"><span class="pre">quick_soil_profile</span></code> to check the soil_profile .</p>
+<p>This function points to the files we explored above and extracts one variable, soil temperature <code class="docutils literal notranslate"><span class="pre">TSOI</span></code> in this case, and plots the soil profile. The y-axis shows soil depth and the x-axis shows time, which is currently set for the year 2018. You can change the <code class="docutils literal notranslate"><span class="pre">year</span></code> variable from 2018 through the current year.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">neon_utils</span> <span class="kn">import</span> <span class="n">plot_soil_profile_timeseries</span>
+<span class="n">sim_path</span> <span class="o">=</span> <span class="s2">&quot;/home/user/archive/&quot;</span><span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">&quot;.transient/lnd/hist/&quot;</span>
+<span class="n">case_name</span> <span class="o">=</span> <span class="n">neon_site</span><span class="o">+</span><span class="s2">&quot;.transient.clm2&quot;</span>
+<span class="n">year</span> <span class="o">=</span> <span class="mi">2018</span>
+
+<span class="n">plot_soil_profile_timeseries</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="n">neon_site</span><span class="p">,</span> <span class="n">case_name</span><span class="p">,</span> <span class="s1">&#39;TSOI&#39;</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2%|▏         | 6/365 [00:00&lt;00:06, 52.49it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All Simulation files: [ 365 files]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 365/365 [00:06&lt;00:00, 58.23it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading all simulation files [ 365 files] took: 11.48273229598999 s.
+Making this plot took  11.550240516662598 s.
+</pre></div>
+</div>
+<img alt="_images/NEON_Simulation_Tutorial_15_4.png" src="_images/NEON_Simulation_Tutorial_15_4.png" />
+</div>
+</div>
+<p>Now, let’s make a similar plot for soil moisture (<code class="docutils literal notranslate"><span class="pre">H2OSOI</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_path</span> <span class="o">=</span> <span class="s2">&quot;/home/user/archive/&quot;</span><span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">&quot;.transient/lnd/hist/&quot;</span>
+<span class="n">case_name</span> <span class="o">=</span> <span class="n">neon_site</span><span class="o">+</span><span class="s2">&quot;.transient.clm2&quot;</span>
+<span class="n">year</span> <span class="o">=</span> <span class="mi">2018</span>
+
+<span class="n">plot_soil_profile_timeseries</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="n">neon_site</span><span class="p">,</span> <span class="n">case_name</span><span class="p">,</span> <span class="s1">&#39;H2OSOI&#39;</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2%|▏         | 6/365 [00:00&lt;00:06, 56.48it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All Simulation files: [ 365 files]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 365/365 [00:06&lt;00:00, 59.24it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading all simulation files [ 365 files] took: 11.184041976928711 s.
+Making this plot took  11.259418249130249 s.
+</pre></div>
+</div>
+<img alt="_images/NEON_Simulation_Tutorial_17_4.png" src="_images/NEON_Simulation_Tutorial_17_4.png" />
+</div>
+</div>
+<div class="section" id="congratulations">
+<h3>Congratulations!<a class="headerlink" href="#congratulations" title="Permalink to this headline">¶</a></h3>
+<p>You have now completed a NEON tower simulation, located the files, and made a plot from the simulation data.</p>
+<p>Additional examples of visualizations and evaluation of your NEON simulation against NEON observations are available in the next tutorial, <code class="docutils literal notranslate"><span class="pre">NEON_Visualization_Tutorial</span></code>.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-default-py"
+        },
+        kernelOptions: {
+            kernelName: "conda-env-default-py",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-default-py'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="markdown.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Markdown Files</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="NEON_Visualization_Tutorial.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Evaluating CLM Simulations at NEON Tower Sites – Tutorial</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Negin Sobhani, Danica Lombardozzi, Will Wieder, Gordon Bonan, Dave Lawrence<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
