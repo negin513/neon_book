@@ -4,6 +4,6 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
+- file: quick_start_docker
 - file: NEON_Simulation_Tutorial
 - file: NEON_Visualization_Tutorial

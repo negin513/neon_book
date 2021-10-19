@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download &amp; Install Docker &#8212; NEON Workshop Tutorial Book</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CTSM Simulations at NEON Tower Sites – Tutorial" href="NEON_Simulation_Tutorial.html" />
+    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/ncar_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NEON Workshop Tutorial Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Download &amp; Install Docker
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NEON_Simulation_Tutorial.html">
+   CTSM Simulations at NEON Tower Sites – Tutorial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NEON_Visualization_Tutorial.html">
+   Evaluating CLM Simulations at NEON Tower Sites – Tutorial
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/quick_start.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fquick_start.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Download &amp; Install Docker
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#docker-is-available-from-this-website-follow-the-instructions-to-install-the-docker-desktop-app-to-access-the-container-you-can-interface-with-docker-using-the-desktop-app-or-using-a-command-line-note-if-you-have-trouble-installing-the-latest-docker-please-try-docker-3-x-some-newer-versions-of-docker-may-be-incompatible-with-your-operating-system-download-the-cesm-lab-container">
+   <strong>
+    Docker is available from
+   </strong>
+   this website
+Follow the instructions to install the Docker Desktop App
+* To access the container, you can interface with Docker using the Desktop App or using a command line
+*
+   <em>
+    Note
+   </em>
+   If you have trouble installing the latest Docker, please try Docker 3.x. Some newer versions of Docker may be incompatible with your operating system.
+.. _download-the-CESM-Lab-container:
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-up-a-directory-for-your-simulations">
+     Set up a directory for your simulations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#these-instructions-create-a-new-folder-simulations-or-whatever-name-you-choose-on-your-desktop-you-may-customize-the-location-of-the-folder-in-your-terminal-or-powershell-window-type-mkdir-home-desktop-simulations">
+   <em>
+    These instructions create a new folder ‘Simulations’ (or whatever name you choose) on your desktop. You may customize the location of the folder.
+   </em>
+   In your terminal or PowerShell window, type::
+mkdir $HOME/Desktop/Simulations
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-cesm-lab-on-the-command-line">
+   Running CESM-Lab on the command line
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#there-are-two-options-for-running-the-container-the-example-below-walks-through-the-command-line-option-recommended-but-this-docker-tutorial-https-drive-google-com-file-d-1zs-srlpgvls3khvfduvycgpxofkgg4-c-view-also-walks-trough-using-the-gui-interface-within-the-docker-app-this-runs-the-container-using-an-interactive-session-descriptions-are-included-below-the-command-line-to-help-understand-what-its-doing-in-your-terminal-or-powershell-window-type-docker-run-it-rm-p-9999-8888-v-home-desktop-simulations-home-user-escomp-ctsm-lab-2-3-preview-it-rm-ease-of-use-options-interactive-clean-up-p-port-number-v-directory-to-mount-into-the-container-first-half-and-the-containers-mount-location-escomp-ctsm-container-image-name-your-terminal-screen-will-show-the-some-text-connecting-to-cesm-lab-using-a-browser">
+   There are two options for running the container.
+The example below walks through the command line option (recommended), but this Docker Tutorial &lt;https://drive.google.com/file/d/1Zs_SrlpGVlS3KHvFDUVyCGPXOfKgG4_c/view__ also walks trough using the GUI interface within the Docker App.
+   <strong>
+    This runs the container using an interactive session.
+   </strong>
+   <em>
+    Descriptions are included below the command line to help understand what it’s doing.
+   </em>
+   In your terminal or PowerShell window, type::
+docker run -it –rm -p 9999:8888 -v $HOME/Desktop/Simulations:/home/user escomp/ctsm-lab-2.3-preview
+* -it –rm = ‘Ease-of-use’ options: interactive &amp; clean-up
+* -p = Port number
+* -v = Directory to mount into the container (first half), and the container’s mount location
+* “escomp/ctsm-…” = Container Image Name
+   <em>
+    Your terminal screen will show the some text
+   </em>
+   .. _connecting-to-cesm-lab-using-a-browser:
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <p>The following instructions describe how to download docker, get the
+CESM-Lab container, and run the CESM-Lab for NEON tower sites.</p>
+<p>If you prefer to see a slide deck with more images, see this <a class="reference external" href="https://drive.google.com/file/d/1Zs_SrlpGVlS3KHvFDUVyCGPXOfKgG4_c/view">Docker
+Tutorial</a>.</p>
+<p><strong>Container Basics</strong></p>
+<p><em>CESM-Lab: A containerized environment with CESM + Jupyter Lab</em></p>
+<p>CTSM and CESM typically require computing resources that can be
+complicated to set up on a personal computer. Now you can easily run
+CTSM using a container. A container is preconfigured, portable
+application that can reliably run on any computing infrastructure.</p>
+<ul class="simple">
+<li><p><em>How do I get started?</em> The software is available through a Docker
+container. This tutorial will guide you through setting up the CTSM
+container, where you will find a separate tutorial on running CTSM
+at NEON tower sites.</p></li>
+<li><p>Before diving in, we’ll need to install Docker, which we’ll cover
+next.</p></li>
+<li><p>Some of the instructions also in this tutorial also use basic Linux
+commands, which you can run on Macs using the Terminal application
+(in the Utilities folder) or a similar application for PCs, like
+Windows Command Prompt.</p></li>
+<li><p>Knowledge of Linux is not required for this tutorial. If you are
+unfamiliar with Linux and would like to know more, there are several
+<a class="reference external" href="https://software-carpentry.org/lessons/">online tutorials</a></p></li>
+</ul>
+<div class="section" id="download-install-docker">
+<h1>Download &amp; Install Docker<a class="headerlink" href="#download-install-docker" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="docker-is-available-from-this-website-follow-the-instructions-to-install-the-docker-desktop-app-to-access-the-container-you-can-interface-with-docker-using-the-desktop-app-or-using-a-command-line-note-if-you-have-trouble-installing-the-latest-docker-please-try-docker-3-x-some-newer-versions-of-docker-may-be-incompatible-with-your-operating-system-download-the-cesm-lab-container">
+<h1><strong>Docker is available from</strong> <a class="reference external" href="https://www.docker.com/products/docker-desktop">this website</a>
+Follow the instructions to install the Docker Desktop App
+* To access the container, you can interface with Docker using the Desktop App or using a command line
+* <em>Note</em> If you have trouble installing the latest Docker, please try Docker 3.x. Some newer versions of Docker may be incompatible with your operating system.
+.. _download-the-CESM-Lab-container:<a class="headerlink" href="#docker-is-available-from-this-website-follow-the-instructions-to-install-the-docker-desktop-app-to-access-the-container-you-can-interface-with-docker-using-the-desktop-app-or-using-a-command-line-note-if-you-have-trouble-installing-the-latest-docker-please-try-docker-3-x-some-newer-versions-of-docker-may-be-incompatible-with-your-operating-system-download-the-cesm-lab-container" title="Permalink to this headline">¶</a></h1>
+<p>Download the CESM-Lab Container</p>
+<p><em>This only needs to be done one time – you can keep using this
+container any time you run NEON simulations. Please note that this step
+can take a little time as it will download ~5GB of data (time will vary
+based on internet speed).</em></p>
+<p>Getting CESM-Lab: using a Linux command-line ==============</p>
+<ul class="simple">
+<li><p>Mac: find “Terminal” in your Utilities</p></li>
+<li><p>Windows: Run the ‘PowerShell’ from the Start menu</p></li>
+</ul>
+<p>Download the CTSM Docker Container ==============</p>
+<p>In your Terminal or PowerShell window, type:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>docker pull escomp/ctsm-lab-2.3-preview
+</pre></div>
+</div>
+<div class="section" id="set-up-a-directory-for-your-simulations">
+<h2>Set up a directory for your simulations<a class="headerlink" href="#set-up-a-directory-for-your-simulations" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="these-instructions-create-a-new-folder-simulations-or-whatever-name-you-choose-on-your-desktop-you-may-customize-the-location-of-the-folder-in-your-terminal-or-powershell-window-type-mkdir-home-desktop-simulations">
+<h1><em>These instructions create a new folder ‘Simulations’ (or whatever name you choose) on your desktop. You may customize the location of the folder.</em>
+In your terminal or PowerShell window, type::
+mkdir $HOME/Desktop/Simulations<a class="headerlink" href="#these-instructions-create-a-new-folder-simulations-or-whatever-name-you-choose-on-your-desktop-you-may-customize-the-location-of-the-folder-in-your-terminal-or-powershell-window-type-mkdir-home-desktop-simulations" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="running-cesm-lab-on-the-command-line">
+<h1>Running CESM-Lab on the command line<a class="headerlink" href="#running-cesm-lab-on-the-command-line" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="there-are-two-options-for-running-the-container-the-example-below-walks-through-the-command-line-option-recommended-but-this-docker-tutorial-https-drive-google-com-file-d-1zs-srlpgvls3khvfduvycgpxofkgg4-c-view-also-walks-trough-using-the-gui-interface-within-the-docker-app-this-runs-the-container-using-an-interactive-session-descriptions-are-included-below-the-command-line-to-help-understand-what-its-doing-in-your-terminal-or-powershell-window-type-docker-run-it-rm-p-9999-8888-v-home-desktop-simulations-home-user-escomp-ctsm-lab-2-3-preview-it-rm-ease-of-use-options-interactive-clean-up-p-port-number-v-directory-to-mount-into-the-container-first-half-and-the-containers-mount-location-escomp-ctsm-container-image-name-your-terminal-screen-will-show-the-some-text-connecting-to-cesm-lab-using-a-browser">
+<h1>There are two options for running the container.
+The example below walks through the command line option (recommended), but this Docker Tutorial &lt;<a class="reference external" href="https://drive.google.com/file/d/1Zs_SrlpGVlS3KHvFDUVyCGPXOfKgG4_c/view__">https://drive.google.com/file/d/1Zs_SrlpGVlS3KHvFDUVyCGPXOfKgG4_c/view__</a> also walks trough using the GUI interface within the Docker App.
+<strong>This runs the container using an interactive session.</strong> <em>Descriptions are included below the command line to help understand what it’s doing.</em>
+In your terminal or PowerShell window, type::
+docker run -it –rm -p 9999:8888 -v $HOME/Desktop/Simulations:/home/user escomp/ctsm-lab-2.3-preview
+* -it –rm = ‘Ease-of-use’ options: interactive &amp; clean-up
+* -p = Port number
+* -v = Directory to mount into the container (first half), and the container’s mount location
+* “escomp/ctsm-…” = Container Image Name
+<em>Your terminal screen will show the some text</em>
+.. _connecting-to-cesm-lab-using-a-browser:<a class="headerlink" href="#there-are-two-options-for-running-the-container-the-example-below-walks-through-the-command-line-option-recommended-but-this-docker-tutorial-https-drive-google-com-file-d-1zs-srlpgvls3khvfduvycgpxofkgg4-c-view-also-walks-trough-using-the-gui-interface-within-the-docker-app-this-runs-the-container-using-an-interactive-session-descriptions-are-included-below-the-command-line-to-help-understand-what-its-doing-in-your-terminal-or-powershell-window-type-docker-run-it-rm-p-9999-8888-v-home-desktop-simulations-home-user-escomp-ctsm-lab-2-3-preview-it-rm-ease-of-use-options-interactive-clean-up-p-port-number-v-directory-to-mount-into-the-container-first-half-and-the-containers-mount-location-escomp-ctsm-container-image-name-your-terminal-screen-will-show-the-some-text-connecting-to-cesm-lab-using-a-browser" title="Permalink to this headline">¶</a></h1>
+<p>Connecting to CESM-Lab using a browser</p>
+<p><strong>Open a new web browser window.</strong></p>
+<p>In the search bar type:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>localhost:9999
+</pre></div>
+</div>
+<p><em>This connects to an interface. Note the ‘9999’ at the end of this
+number is the same as the beginning of the port in step 4 above. If you
+launch more than one container at a time, you will need to change the
+port number</em></p>
+<p>============ Accessing the NEON Tower Simulation Tutorial ============
+<em>Your browser window will open a Jupyter Notebook environment</em></p>
+<ul class="simple">
+<li><p>Click on the “tutorials” folder on the left, then</p></li>
+<li><p>Click on the “notebooks” folder.</p></li>
+<li><p>Open the ‘NEON_Tower_Simulation_Tutorial’</p></li>
+</ul>
+<p><em>Follow the tutorial instructions to run a NEON tower site simulation &amp;
+explore the data</em></p>
+<p><strong>Note:</strong></p>
+<ul class="simple">
+<li><p><em>If you want to access the container again in the future and do not
+end your session, you can open a web browser and point to the
+container (Step 5).</em></p></li>
+<li><p><em>If you end your session (Step 7) or restart your computer, you can
+restart the container from Step 4</em></p></li>
+</ul>
+<p>============ Ending your session ============ <strong>When you are ready to
+close your session</strong></p>
+<p>Identify active sessions by typing the following into terminal.
+(<strong>Note,</strong> you may need to open a new terminal window to do this):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>docker ps 
+</pre></div>
+</div>
+<p>Once the container ID has been identified, kill the job by typing the
+following into terminal:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>docker kill &lt;session ID&gt; 
+</pre></div>
+</div>
+<p><em>If the docker run command was not run in the background, you might find
+that you cannot type anything into the open terminal window. Either open
+a new terminal window to identify and kill sessions, or you can use
+ctrl + c to kill all active sessions.</em></p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="intro.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Welcome to your Jupyter Book</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="NEON_Simulation_Tutorial.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">CTSM Simulations at NEON Tower Sites – Tutorial</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Negin Sobhani, Danica Lombardozzi, Will Wieder, Gordon Bonan, Dave Lawrence<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
