@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Getting started with the CESM Lab container &#8212; NEON Workshop Tutorial Book</title>
+    <title>Container and CESM-Lab Basics &#8212; NEON Workshop Tutorial Book</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="CTSM Simulations at NEON Tower Sites – Tutorial" href="NEON_Simulation_Tutorial.html" />
+    <link rel="next" title="Getting started with the CESM Lab container" href="quick_start_docker_part2.html" />
     <link rel="prev" title="Welcome to NEON Tutorial Jupyter Book" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -82,27 +82,44 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   Welcome to NEON Tutorial Jupyter Book
-  </a>
- </li>
-</ul>
+        <p class="caption">
+ <span class="caption-text">
+  Lesson 1
+ </span>
+</p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
+   Container and CESM-Lab Basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="quick_start_docker_part2.html">
    Getting started with the CESM Lab container
   </a>
  </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Lesson 2
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="NEON_Simulation_Tutorial.html">
    CTSM Simulations at NEON Tower Sites – Tutorial
   </a>
  </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Lesson 3
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="NEON_Visualization_Tutorial.html">
-   Evaluating CLM Simulations at NEON Tower Sites – Tutorial
+   Tutorial 2: Evaluating CLM Simulations at NEON Tower Sites
   </a>
  </li>
 </ul>
@@ -162,14 +179,16 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/NCAR/NEON-visualization"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fquick_start_docker.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/NCAR/NEON-visualization/issues/new?title=Issue%20on%20page%20%2Fquick_start_docker.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
+        <a class="edit-button" href="https://github.com/NCAR/NEON-visualization/edit/master/docs/quick_start_docker.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
 </div>
 
@@ -198,58 +217,26 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#faqs">
-     FAQs
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-install-docker">
-   Download &amp; Install Docker
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-the-cesm-lab-container">
-   Download the CESM-Lab Container
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#getting-cesm-lab-using-a-linux-command-line">
-     Getting CESM-Lab: using a Linux command-line
+    <a class="reference internal nav-link" href="#what-is-a-container">
+     What is a container?
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-the-ctsm-docker-container">
-     Download the CTSM Docker Container
+    <a class="reference internal nav-link" href="#why-use-a-container">
+     Why use a container?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cesm-lab">
+     CESM-Lab
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-do-i-get-started">
+     How do I get started?
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#set-up-a-directory-for-your-simulations">
-   Set up a directory for your simulations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#running-cesm-lab-on-the-command-line">
-   Running CESM-Lab on the command line
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#connecting-to-cesm-lab-using-a-browser">
-   Connecting to CESM-Lab using a browser
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#accessing-the-neon-tower-simulation-tutorial">
-   Accessing the NEON Tower Simulation Tutorial
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ending-your-session">
-   Ending your session
-  </a>
  </li>
 </ul>
 
@@ -262,156 +249,54 @@
         
               <div>
                 
-  <div class="section" id="getting-started-with-the-cesm-lab-container">
-<h1>Getting started with the CESM Lab container<a class="headerlink" href="#getting-started-with-the-cesm-lab-container" title="Permalink to this headline">¶</a></h1>
-<p>The following instructions describe how to download Docker, get the CESM-Lab container, and run the CESM-Lab for NEON tower sites.</p>
-<p>If you prefer to see a slide deck with more images, see this <a class="reference external" href="https://drive.google.com/file/d/1Zs_SrlpGVlS3KHvFDUVyCGPXOfKgG4_c/view">Docker
-Tutorial</a>.</p>
+  <div class="section" id="container-and-cesm-lab-basics">
+<h1>Container and CESM-Lab Basics<a class="headerlink" href="#container-and-cesm-lab-basics" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we are going to learn about container basics, the benefits of using containers, and what CESM-Lab is.</p>
 <div class="section" id="container-basics">
 <h2>Container Basics<a class="headerlink" href="#container-basics" title="Permalink to this headline">¶</a></h2>
 <p>CTSM and CESM typically require computing resources that can be
 complicated to set up on a personal computer. Now you can easily run
-CTSM using a container. A container is preconfigured, portable
+CTSM using a container.</p>
+<div class="section" id="what-is-a-container">
+<h3>What is a container?<a class="headerlink" href="#what-is-a-container" title="Permalink to this headline">¶</a></h3>
+<p>A container is preconfigured, portable
 application that can reliably run on any computing infrastructure.</p>
+</div>
+<div class="section" id="why-use-a-container">
+<h3>Why use a container?<a class="headerlink" href="#why-use-a-container" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Portable</strong> : Containers can run almost everywhere (Mac, Windows, Linux).</p></li>
+<li><p><strong>Pre-configured</strong> : No installation or porting required on containers.</p></li>
+<li><p><strong>Standardized</strong> : All users get the same environment.</p></li>
+</ul>
+</div>
+<div class="section" id="cesm-lab">
+<h3>CESM-Lab<a class="headerlink" href="#cesm-lab" title="Permalink to this headline">¶</a></h3>
+<p>The capability to run NEON tower simulations is available using the CESM-Lab container.</p>
 <p><img alt="CESM-Lab" src="_images/cesm_lab_overview.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>CESM-Lab: A containerized environment with CESM + Jupyter Lab*</p>
+<p>CESM-Lab is a containerized environment with CESM and  Jupyter Lab.</p>
 </div>
-<div class="section" id="faqs">
-<h3>FAQs<a class="headerlink" href="#faqs" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><em>How do I get started?</em> The software is available through a Docker
+</div>
+<div class="section" id="how-do-i-get-started">
+<h3>How do I get started?<a class="headerlink" href="#how-do-i-get-started" title="Permalink to this headline">¶</a></h3>
+<p>The software is available through a Docker
 container. This tutorial will guide you through setting up the CTSM
 container, where you will find a separate tutorial on running CTSM
-at NEON tower sites.</p></li>
-<li><p>Before diving in, we’ll need to install Docker, which we’ll cover
-next.</p></li>
-<li><p>Some of the instructions also in this tutorial also use basic Linux
+at NEON tower sites.</p>
+<p>Before diving in, we’ll need to install Docker, which we’ll cover
+next.</p>
+<p>Some of the instructions also in this tutorial also use basic Linux
 commands, which you can run on Macs using the Terminal application
 (in the Utilities folder) or a similar application for PCs, like
-Windows Command Prompt.</p></li>
-<li><p>Knowledge of Linux is not required for this tutorial. If you are
-unfamiliar with Linux and would like to know more, there are several
-<a class="reference external" href="https://software-carpentry.org/lessons/">online tutorials</a></p></li>
-</ul>
+Windows PowerShell.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Knowledge of Linux is not required for this tutorial. If you are unfamiliar with Linux and would like to know more, there are several tutorials online.
+Software Carpentry is one organization that has accessible <a class="reference external" href="https://software-carpentry.org/lessons/">online lessons</a>.</p>
 </div>
 </div>
-<div class="section" id="download-install-docker">
-<h2>Download &amp; Install Docker<a class="headerlink" href="#download-install-docker" title="Permalink to this headline">¶</a></h2>
-<p><strong>Docker is available from</strong> <a class="reference external" href="https://www.docker.com/products/docker-desktop">this website</a></p>
-<p>Follow the instructions to install the Docker Desktop App.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>To access the container, you can interface with Docker using the Desktop App or using a command line.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have trouble installing the latest Docker, please try Docker 3.x. Some newer versions of Docker may be incompatible with your operating system.</p>
-</div>
-</div>
-<div class="section" id="download-the-cesm-lab-container">
-<h2>Download the CESM-Lab Container<a class="headerlink" href="#download-the-cesm-lab-container" title="Permalink to this headline">¶</a></h2>
-<p>This only needs to be done one time – you can keep using this
-container any time you run NEON simulations. Please note that this step
-can take a little time as it will download ~5GB of data (time will vary
-based on internet speed).*</p>
-<div class="section" id="getting-cesm-lab-using-a-linux-command-line">
-<h3>Getting CESM-Lab: using a Linux command-line<a class="headerlink" href="#getting-cesm-lab-using-a-linux-command-line" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Mac: find “Terminal” in your Utilities</p></li>
-<li><p>Windows: Run the ‘PowerShell’ from the Start menu</p></li>
-</ul>
-</div>
-<div class="section" id="download-the-ctsm-docker-container">
-<h3>Download the CTSM Docker Container<a class="headerlink" href="#download-the-ctsm-docker-container" title="Permalink to this headline">¶</a></h3>
-<p>In your Terminal or PowerShell window, type:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>docker pull escomp/ctsm-lab-2.3-preview
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="set-up-a-directory-for-your-simulations">
-<h2>Set up a directory for your simulations<a class="headerlink" href="#set-up-a-directory-for-your-simulations" title="Permalink to this headline">¶</a></h2>
-<p>These instructions create a new folder ‘Simulations’ (or whatever name you choose) on your desktop. You may customize the location of the folder.</p>
-<p>In your terminal or PowerShell window, type:
-“””
-mkdir $HOME/Desktop/Simulations
-“””</p>
-</div>
-<div class="section" id="running-cesm-lab-on-the-command-line">
-<h2>Running CESM-Lab on the command line<a class="headerlink" href="#running-cesm-lab-on-the-command-line" title="Permalink to this headline">¶</a></h2>
-<p>There are two options for running the container.</p>
-<p>The example below walks through the command line option (recommended), but this Docker Tutorial &lt;<a class="reference external" href="https://drive.google.com/file/d/1Zs_SrlpGVlS3KHvFDUVyCGPXOfKgG4_c/view__">https://drive.google.com/file/d/1Zs_SrlpGVlS3KHvFDUVyCGPXOfKgG4_c/view__</a> also walks trough using the GUI interface within the Docker App.</p>
-<p><strong>This runs the container using an interactive session.</strong></p>
-<p>Descriptions are included below the command line to help understand what it’s doing.*</p>
-<p>In your terminal or PowerShell window, type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  docker run -it --rm -p 9999:8888 -v \$HOME/Desktop/Simulations:/home/user escomp/ctsm-lab-2.3-preview
-
-</pre></div>
-</div>
-<p>Other flags or options are available for running the docker:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-it</span> <span class="pre">--rm</span></code> = ‘Ease-of-use’ options: interactive &amp; clean-up</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code> = Port number</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code> = Directory to mount into the container (first half), and the container’s mount location</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;escomp/ctsm-...&quot;</span></code> = Container Image Name</p></li>
-</ul>
-<p>Your terminal screen will show the some text.</p>
-</div>
-<div class="section" id="connecting-to-cesm-lab-using-a-browser">
-<h2>Connecting to CESM-Lab using a browser<a class="headerlink" href="#connecting-to-cesm-lab-using-a-browser" title="Permalink to this headline">¶</a></h2>
-<p>Open a new web browser window.</p>
-<p>In the search bar type:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>localhost:9999
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><em>This connects to an interface. Note the ‘9999’ at the end of this
-number is the same as the beginning of the port in step 4 above. If you
-launch more than one container at a time, you will need to change the
-port number</em></p>
-</div>
-</div>
-<div class="section" id="accessing-the-neon-tower-simulation-tutorial">
-<h2>Accessing the NEON Tower Simulation Tutorial<a class="headerlink" href="#accessing-the-neon-tower-simulation-tutorial" title="Permalink to this headline">¶</a></h2>
-<p>Your browser window will open a Jupyter Notebook environment.</p>
-<ul class="simple">
-<li><p>Click on the “tutorials” folder on the left, then</p></li>
-<li><p>Click on the “notebooks” folder.</p></li>
-<li><p>Open the ‘NEON_Tower_Simulation_Tutorial’</p></li>
-</ul>
-<p><em>Follow the tutorial instructions to run a NEON tower site simulation &amp;
-explore the data</em></p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<ul class="simple">
-<li><p><em>If you want to access the container again in the future and do not
-end your session, you can open a web browser and point to the
-container (Step 5).</em></p></li>
-<li><p><em>If you end your session (Step 7) or restart your computer, you can
-restart the container from Step 4</em></p></li>
-</ul>
-</div>
-</div>
-<div class="section" id="ending-your-session">
-<h2>Ending your session<a class="headerlink" href="#ending-your-session" title="Permalink to this headline">¶</a></h2>
-<p>close your session**</p>
-<p>Identify active sessions by typing the following into terminal.
-(<strong>Note,</strong> you may need to open a new terminal window to do this):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">docker</span> <span class="n">ps</span> 
-</pre></div>
-</div>
-<p>Once the container ID has been identified, kill the job by typing the
-following into terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">docker</span> <span class="n">kill</span> <span class="o">&lt;</span><span class="n">session</span> <span class="n">ID</span><span class="o">&gt;</span> 
-</pre></div>
-</div>
-<p><em>If the docker run command was not run in the background, you might find
-that you cannot type anything into the open terminal window. Either open
-a new terminal window to identify and kill sessions, or you can use
-ctrl + c to kill all active sessions.</em></p>
 </div>
 </div>
 
@@ -454,10 +339,10 @@ ctrl + c to kill all active sessions.</em></p>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="NEON_Simulation_Tutorial.html" title="next page">
+        <a class="right-next" href="quick_start_docker_part2.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">CTSM Simulations at NEON Tower Sites – Tutorial</p>
+                <p class="prevnext-title">Getting started with the CESM Lab container</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

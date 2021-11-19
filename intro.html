@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting started with the CESM Lab container" href="quick_start_docker.html" />
+    <link rel="next" title="Container and CESM-Lab Basics" href="quick_start_docker.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -81,27 +81,44 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
-   Welcome to NEON Tutorial Jupyter Book
-  </a>
- </li>
-</ul>
+        <p class="caption">
+ <span class="caption-text">
+  Lesson 1
+ </span>
+</p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="quick_start_docker.html">
+   Container and CESM-Lab Basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="quick_start_docker_part2.html">
    Getting started with the CESM Lab container
   </a>
  </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Lesson 2
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="NEON_Simulation_Tutorial.html">
    CTSM Simulations at NEON Tower Sites – Tutorial
   </a>
  </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Lesson 3
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="NEON_Visualization_Tutorial.html">
-   Evaluating CLM Simulations at NEON Tower Sites – Tutorial
+   Tutorial 2: Evaluating CLM Simulations at NEON Tower Sites
   </a>
  </li>
 </ul>
@@ -161,14 +178,16 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/NCAR/NEON-visualization"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/NCAR/NEON-visualization/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
+        <a class="edit-button" href="https://github.com/NCAR/NEON-visualization/edit/master/docs/intro.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
 </div>
 
@@ -192,8 +211,13 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#documentation">
-   Documentation
+  <a class="reference internal nav-link" href="#resources">
+   Resources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#questions">
+   Questions
   </a>
  </li>
 </ul>
@@ -210,23 +234,30 @@
   <div class="section" id="welcome-to-neon-tutorial-jupyter-book">
 <h1>Welcome to NEON Tutorial Jupyter Book<a class="headerlink" href="#welcome-to-neon-tutorial-jupyter-book" title="Permalink to this headline">¶</a></h1>
 <p>This Jupyter book is designed as an introduction to running the Community Terrestrial Systems Model (CTSM) at NEON tower sites.</p>
-<p>This tutorial will guide you through setting up a container on your local system and it will guide you through running a simulation and provides example of basic and advanced visualization of the simulation results.</p>
+<p>Using models can enhance the impact of ecological research. Regardless of whether you are a seasoned modeler or a novice, setting up and running models designed for large spatial scales can be challenging. The NCAR-NEON collaboration makes the process simple.</p>
+<p>We have developed new capabilities to easily run Community Land Model (CLM) simulations at NEON tower sites by setting up the appropriate model configurations, datasets, and initial conditions. With this new tool, CLM uses gap-filled meteorology from NEON tower sites, the dominant plant species is mapped to the appropriate model plant functional type (PFT), and soil characteristics used in the simulations are updated to match observations from NEON’s soil megapits. Gap-filled NEON tower flux data are also available for model evaluation. Additionally, all the commands to run the model are combined into a script that you can easily call from a single line of code.</p>
+<p>These new capabilities are packaged into a Docker container, CESM-Lab, so that you can run simulations on any computing system, including your laptop or the cloud. Within the CESM-Lab container, you will find tutorials that guide you through how to run a CLM simulation for a NEON tower of your choice and help you to access, process, and evaluate model simulations.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Here is a note!</p>
+<p>Please note that this tool is currently in development and we are soliciting feedback from early adopters. Results should be used for exploratory purposes but not for publication-quality science. More detailed documentation will be provided in a forthcoming publication.</p>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Here is a tip!</p>
+<p>This tutorial will guide you through setting up a container on your local system and it will guide you through running a simulation and provides example of basic visualization and analysis of the simulation results.</p>
+<div class="section" id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://escomp.github.io/ctsm-docs/versions/master/html/index.html">CTSM Technical Documentation</a></p>
+<p><a class="reference external" href="https://escomp.github.io/ctsm-docs/versions/master/html/users_guide/index.html">CTSM User’s Guide</a></p>
+<p><a class="reference external" href="https://escomp.github.io/CESM/release-cesm2/quickstart.html#create-a-case">Quickstart Guide for Various Model Configuraions</a></p>
+<p><a class="reference external" href="https://escomp.github.io/ctsm-docs/versions/master/html/users_guide/running-single-points/single-point-and-regional-grid-configurations.html">Running single-point cases other than NEON</a></p>
 </div>
-<div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>CTSM documentation:
-<a class="reference external" href="https://escomp.github.io/ctsm-docs/versions/master/html/index.html">https://escomp.github.io/ctsm-docs/versions/master/html/index.html</a></p>
-<p>FAQ</p>
-<p>Running single-point cases other than neon:
-<a class="reference external" href="https://escomp.github.io/ctsm-docs/versions/master/html/users_guide/running-single-points/single-point-and-regional-grid-configurations.html">https://escomp.github.io/ctsm-docs/versions/master/html/users_guide/running-single-points/single-point-and-regional-grid-configurations.html</a></p>
-<p>Support</p>
+<div class="section" id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<p>For questions about running simulations, please use DiscussCESM Forums:</p>
+<p><a class="reference external" href="https://bb.cgd.ucar.edu/cesm/forums/containers-cloud-platforms.162/">Containers &amp; Cloud Platforms Forum</a></p>
+<p><a class="reference external" href="https://bb.cgd.ucar.edu/cesm/forums/ctsm-clm-mosart-rtm.134/">CTSM Forum</a></p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -265,7 +296,7 @@
         <a class="right-next" href="quick_start_docker.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Getting started with the CESM Lab container</p>
+                <p class="prevnext-title">Container and CESM-Lab Basics</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
