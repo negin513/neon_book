@@ -54,7 +54,7 @@
 
 
 #Change the 4-character NEON site below.
-neon_site= "ABBY"
+neon_site= "SCBI  SERC  SOAP  SRER  STEI  TALL  TREE  UKFS  UNDE  WOOD"
 
 import os
 os.environ['site'] = neon_site
@@ -76,10 +76,10 @@ os.environ['site'] = neon_site
 # 
 # *Note: we are working to update this code so that it prints fewer lines*
 
-# In[ ]:
+# In[2]:
 
 
-run_neon --neon-sites $site --output-root ~/CLM-NEON
+run_neon --neon-sites $site --output-root ~/CLM-NEON --overwrite
 
 
 # <br><br>The model is done running when you see: 
@@ -158,9 +158,10 @@ get_ipython().system('ls ~/archive/$site.transient/lnd/hist/*2018*.nc |head -20'
 # 
 # This function points to the files we explored above and extracts one variable, soil temperature `TSOI` in this case, and plots the soil profile. The y-axis shows soil depth and the x-axis shows time, which is currently set for the year 2018. You can change the `year` variable from 2018 through the current year.
 
-# In[3]:
+# In[4]:
 
 
+neon_site = "WOOD"
 from neon_utils import plot_soil_profile_timeseries
 sim_path = "/home/user/archive/"+neon_site+".transient/lnd/hist/"
 case_name = neon_site+".transient.clm2"
@@ -171,7 +172,7 @@ plot_soil_profile_timeseries(sim_path, neon_site, case_name, 'TSOI', year)
 
 # Now, let's make a similar plot for soil moisture (`H2OSOI`):
 
-# In[4]:
+# In[6]:
 
 
 sim_path = "/home/user/archive/"+neon_site+".transient/lnd/hist/"

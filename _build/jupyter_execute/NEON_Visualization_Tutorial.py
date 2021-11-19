@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Evaluating CLM Simulations at NEON Tower Sites -- Tutorial 
+# # Tutorial 2: Evaluating CLM Simulations at NEON Tower Sites
 # 
-# This tutorial is an introduction to evaluating CLM at NEON tower sites.  It provides example visualizations and evaluation of simulated latent heat flux using NEON tower observations.  
+# This tutorial is an introduction to evaluating CLM at a NEON tower site.  It provides example visualizations and evaluation of simulated latent heat flux using NEON tower observations.  
 # 
-# **⚠️ Note: Before starting this tutorial, please make sure you successfully completed a simulation using the NEON_Simulation_Tutorial. Please use the same NEON site here.**
+# **⚠️ Note: Before starting this tutorial, make sure your simulation in Tutorial 1 successfully completed. Please use the same NEON site here.**
 # ***
-# **The tutorial uses a Jupyter Notebook.** A Jupyter Notebook is an interactive computing environment that enables the creation and sharing of documents that contain discrete cells of text or documentation and executable code, including plots. It allows users to access, run, and edit the code in a browser. To interact with this notebook:
+# **This tutorial uses a Jupyter Notebook.** A Jupyter Notebook is an interactive computing environment that enables the creation and sharing of documents that contain discrete cells of text or documentation and executable code, including plots. It allows users to access, run, and edit the code in a browser. To interact with this notebook:
 # 
 # - Execute or "run" cells of executable code (cells denoted with '[ ]:') using the play button in the menu at the top (see below image)
 # 
@@ -21,7 +21,7 @@
 # 
 # ***
 
-# __In this tutorial :__
+# ## In this tutorial :
 # 
 # The tutorial has several components. Below you will find steps to: 
 # 1. Explore CLM model data
@@ -33,13 +33,13 @@
 # 
 # There are countless ways of analyzing and processing model data. This tutorial uses Matplotlib, a comprehensive data visualization and plotting library for Python. For more information on Matplotlib, please see the [User's Guide](https://matplotlib.org/stable/users/index.html).
 
-# Before diving in, set the NEON site that you simulated in the cell below. **This needs to be the same site as you used in the previous tutorial.** Otherwise the data will not be available. NEON tower sites include:
+# Before diving in, set the NEON site that you simulated in the cell below. **Please use the same site as in the previous tutorial, otherwise the data will not be available.** As a refresher, NEON tower sites include:
 # 
 # >ABBY, BART, BLAN, CPER, DCFS, DSNY, GRSM, HARV, JERC, JORN, KONZ, MOAB, NOGP, OAES, ORNL, OSBS, SCBI, SERC, SOAP, SRER, STEI, TALL, TREE, UKFS, UNDE, WOOD.  
 # 
-# *The tutorial is currently set to use the ABBY site. If you ran a simulation for a different tower, please change the 4-character site name in quotes below to the same as your simulation.*
+# *The tutorial is currently set to use the ABBY site. If you ran a simulation for a different tower site, please change the 4-character site name in quotes below to the same as your simulation.*
 
-# In[1]:
+# In[ ]:
 
 
 #Change the 4-character NEON site below to point to your NEON site:
@@ -53,7 +53,7 @@ neon_site = "ABBY"
 # 
 # *Run the cell below to see a subset of the files listed:*
 
-# In[2]:
+# In[ ]:
 
 
 get_ipython().system('ls ~/archive/{neon_site}.transient/lnd/hist/*2018*.nc |head -20')
@@ -62,20 +62,26 @@ get_ipython().system('ls ~/archive/{neon_site}.transient/lnd/hist/*2018*.nc |hea
 # Each line of the list above includes the file path (`/home/user/archive/{simulation_name}/lnd/hist/`) and file name. The file names are automatically generated and comprise:
 # * the simulation name, which includes:
 #     * the NEON site
-#     * the type of simulation (here the simulation is "transient", meaning the model ran for the full length of available data)
+#     * the type of simulation 
+#         * The simulation you ran is "transient". This means the model was initialized and ran for the full length of available data. The initial conditions files for the transient tower simulations were created by cycling over 2018-2019 tower meteorological data. 
 # * the date of simulated data
-# 
 # 
 # The NEON tower simulations generate two types of files:
 # * `*h0*`: Variables that are averaged monthly. One file is available for every month of the simulation.
 # * `*h1*`: Variables that are recorded every 30 minutes. Values are aggregated into one file for each day of the simulation. Each file includes 48 data points.
+# 
+# **Note:** Only a subset of CLM variables are included on the `*h1*` files, with many more variables included on the monthly-averaged `*h0*` files. A full list of variables that are simulated by CLM is available [on this website](https://escomp.github.io/ctsm-docs/versions/master/html/users_guide/setting-up-and-running-a-case/master_list_nofates.html).
+# 
+# *Note that you can also find the model data in the 'Simulation' folder on your desktop, which was created as part of this tutorial.*
 # ****
 # 
 
 # The files are saved in netcdf format (denoted with the `.nc` file extension), a file format commonly used for storing large, multi-dimensional scientific variables.
 # Netcdf files are platform independent and self-describing; each file includes metadata that describes the data, including: **variables**, **dimensions**, and **attributes**.
 # 
-# The figure below provides an example of the data structure in a netcdf file. For example, the dataset illustrated has two variables (temperature and pressure) that have three dimensions. Coordinate data (e.g., latitude, longitude, time) that describe the data are also included. 
+# The figure below provides a generic example of the data structure in a netcdf file. The dataset illustrated has two variables (temperature and pressure) that have three dimensions. Coordinate data (e.g., latitude, longitude, time) that describe the data are also included. 
+# 
+# *Note that while each file for NEON tower simulations has multiple variables, the simulation ran for a single site rather than a larger spatial grid and therefore do not include the latitude and longitude dimensions illustrated here. Within each multi-variable file, most of the variables have one dimension (time), while a few soil variables (e.g., moisture, temperature) have two dimensions (time x depth).*
 # 
 # ![Netcdf](https://gdfa.ugr.es/python/climate_data/img/xarray2.png)
 # ****
@@ -89,7 +95,7 @@ get_ipython().system('ls ~/archive/{neon_site}.transient/lnd/hist/*2018*.nc |hea
 # 
 # *Run the below code to import the required python libraries*
 
-# In[3]:
+# In[ ]:
 
 
 #Import Libraries
@@ -98,6 +104,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 import os
 import sys
 import time
+import datetime
 
 import numpy as np
 import pandas as pd
@@ -121,7 +128,7 @@ from neon_utils import download_eval_files
 # The code below uses data for **2018**, but data are available through this year. You can select a different year by changing the year in the quotes below. <p> 
 # *Run the below code to identify the year of interest for making the plots. Note that the same year will be used to download observational data below*
 
-# In[4]:
+# In[ ]:
 
 
 #Specify the year below
@@ -134,26 +141,25 @@ year = "2018"
 # 
 # The variable `sim_path` points to the location where simulation data are stored.
 # 
-# *Run the code below to load the model data files. Note that the code will print how many files were loaded*
+# *Run the code below to load the model data files. The code will print how many files were loaded*
 
-# In[5]:
+# In[ ]:
 
 
 sim_path = "/home/user/archive/"+neon_site+".transient/lnd/hist/"
 sim_files = sorted(glob(join(sim_path,neon_site+".transient.clm2.h1."+year+"*.nc")))
 
 print("All Simulation files: [", len(sim_files), "files]")
-#print(*sim_files,sep='\n')
 
 
 # <h4> 1.2.4 Open model data files </h4>
 # 
-# Here we use the python function `xarray.open_mfdataset`, which opens multiple netcdf files as a single xarray dataset. For more information on this xarray function, check [the website for this function](
+# Here we use the python function `xarray.open_mfdataset`, which opens multiple netcdf files as a single xarray dataset. For more information on this xarray function, visit [the xarray website](
 # http://xarray.pydata.org/en/stable/generated/xarray.open_mfdataset.html).
 # 
 # *Run the below cell to read in the data files. Note that this step might take a few minutes.*
 
-# In[6]:
+# In[ ]:
 
 
 start = time.time()
@@ -161,7 +167,7 @@ start = time.time()
 ds_ctsm = xr.open_mfdataset(sim_files, decode_times=True, combine='by_coords',parallel=True)
 
 end = time.time()
-print("Reading all simulation files took:", end-start, "s.")
+print("Reading all simulation files took:", end-start, "seconds.")
 
 
 # <h4> 1.2.5 Optional Step: Explore dataset from simulations </h4>
@@ -170,7 +176,7 @@ print("Reading all simulation files took:", end-start, "s.")
 # 
 # *Run the below cell to find more information about the data*
 
-# In[7]:
+# In[ ]:
 
 
 ds_ctsm
@@ -178,20 +184,20 @@ ds_ctsm
 
 # In the output, you can click on `Dimensions`, `Coordinates`, `Data Variables`, and `Attributes` to expand and see the details and metadata associated with this dataset. 
 # 
-# If you click on `Data Variables`, you will see a list of all the available variables. You can click on each variable to see a description of the variable (the `long_name`) and its `units`, as well as other information. Here are a few questions to consider:
+# If you click on `Data Variables`, you will see a list of all the available variables. You can click on the 'note' icon at the right end of the line for each variable to see a description of the variable (the `long_name`) and its `units`, as well as other information. Here are a few questions to consider:
 # 
 # **Questions to consider** 
-# 1. What are the avaibale variables in the dataset?
+# 1. What variables are available in the dataset?
 # 2. What is the `long_name` and `unit` of the variable `FSH`? 
 # 3. Can you find the dimensions of this variable? 
 # 
 # **💡 Tip**: 
-# Xarray has built-in plotting functions. For quick inspection of a variable, we can use `.plot()` to see it. Below, let's make a quick plot of the Gross Primary Production (`GPP`) variable:
+# Xarray has built-in plotting functions. For quick inspection of a variable, we can use `.plot()` to see it. The code below will make a basic plot of the Gross Primary Production (`GPP`) variable:
 
-# In[23]:
+# In[ ]:
 
 
-ds_ctsm['GPP'].plot(aspect=2, size=7);
+ds_ctsm['GPP'].plot()
 
 
 # ________
@@ -199,22 +205,30 @@ ds_ctsm['GPP'].plot(aspect=2, size=7);
 # 
 # <h3> 2.1 Download NEON data </h3>
 # 
-# This step uses a preestablished function (`download_eval_files`) that downloads the NEON observational data files for the site and year specified above. 
+# **A note about NEON evaluation data**: NEON data for evaluation are pulled from the API and the least restrictive quality control flags are applied. The data are subsequently gap-filled using a redundant data stream regression, while data that are still missing are filled using a Marginal Distribution Sampling (MDS) gap-filling technique. Unit conversions are performed and the data are formatted and supplied as monthly netCDF files. 
 # 
+# 
+# To download the data, this step uses a preestablished function (`download_eval_files`) to download the NEON observational data files for the site and year specified above. The preprocessed NEON data are available for download from NEON's S3 bucket, with the full listing of available data [here](https://s3.data.neonscience.org/neon-ncar/listing.csv).
+# 
+# 
+# >Note that this downloads the evaluation data based on the year you selected above. If you would like to download all available NEON evaluation data from this site, change the word `year` to `"all"` (quotes included) below: `download_eval_files(neon_site, eval_dir, "all")`
+# 
+# 
+# *Run the cell below to download available NEON data from the site you selected above.*
 
-# In[15]:
+# In[ ]:
 
 
 eval_dir = "/home/user/evaluation_files/"
 
-download_eval_files(neon_site, eval_dir)
+download_eval_files(neon_site, eval_dir, year)
 
 
 # <h3> 2.2 Load NEON data </h3>
 #    
-# Next, run the two cells of code below. The code will print a list of files and read them into a dataset, similar to the steps above.
+# *Run the two cells of code below. The code will print a list of files for the year specified above and read them into a dataset.*
 
-# In[16]:
+# In[ ]:
 
 
 eval_path = os.path.join('/home/user/evaluation_files/',neon_site)
@@ -225,7 +239,7 @@ print("All Observation files:")
 print(*eval_files,sep='\n')
 
 
-# In[17]:
+# In[ ]:
 
 
 start = time.time()
@@ -236,24 +250,6 @@ end = time.time()
 print("Reading all observation files took:", end-start, "s.")
 
 
-# <h3> 2.3 Optional Step: Explore NEON data </h3>
-
-# Similar to above, you can explore NEON data by clicking to see details about the variables, coordinate, and attributes.
-
-# In[18]:
-
-
-ds_eval
-
-
-# *Let's quickly inspect the Net Radiation (`Rnet`) variable by making a simple plot:*
-
-# In[22]:
-
-
-ds_eval['Rnet'].plot(aspect=2, size=7);
-
-
 # __________
 # # 3. Compare CLM and NEON latent heat flux data
 # 
@@ -261,11 +257,14 @@ ds_eval['Rnet'].plot(aspect=2, size=7);
 # ***
 # 
 # #### Format Data
-# The next cell of code processes the data into a common format to make analysis easier. 
+# The next cell of code processes the data into a common format to make analysis easier.
+# <br/>
+# 
+# **A note about model timestamps:** The CTSM history includes an initial 0th timestep for each model simulation. This offset in the time dimension can cause challenges when analyzing and evaluating model data if not treated properly. You may notice in the last line of the below cell, we shift the value by -1 to address this issue.
 # 
 # *Run the below cell of code to extract the variables needed for this notebook and create a single dataframe that includes all the extracted variables*
 
-# In[24]:
+# In[ ]:
 
 
 #Convert CTSM data to a Pandas Dataframe for easier handling:
@@ -295,12 +294,11 @@ for var in ctsm_vars:
     sim_var_name = "sim_"+var
     #-- shift simulation data by one
     df_all[sim_var_name]=df_ctsm[var].shift(-1).values
-    
 
 
 # *The next cell gives us a quick look at the dataframe to make sure the data are available*
 
-# In[25]:
+# In[ ]:
 
 
 df_all.head()
@@ -308,7 +306,7 @@ df_all.head()
 
 # ### 3.1 What is latent heat flux?
 # 
-# Below we explore how well CLM simulates latent heat flux, which is directly observed at NEON towers. Latent heat flux is the energy for water evaporation from the ecosystem. Latent heat flux is a combination of plant transpiration, evaporation from leaf surfaces (e.g., from dew, after precipitation events), and evaporation from the soil:
+# Below we explore how well CLM simulates latent heat flux, which is directly observed at NEON towers. Latent heat flux is the energy for water evaporation from the ecosystem. Latent heat flux is a combination of plant transpiration, evaporation from leaf surfaces (e.g., from dew, after precipitation events, etc.), and evaporation from the soil:
 # 
 # $$ Latent Heat Flux = Transpiration + Canopy Evaporation + Ground Evaporation $$
 # 
@@ -322,7 +320,7 @@ df_all.head()
 # 
 # *Run the below cell to calculate simulated latent heat flux*
 
-# In[26]:
+# In[ ]:
 
 
 clm_var = 'sim_EFLX_LH_TOT'
@@ -330,18 +328,36 @@ clm_var = 'sim_EFLX_LH_TOT'
 #EFLX_LH_TOT = FCEV + FCTR +FGEV
 df_all [clm_var] = df_all['sim_FCEV']                  + df_all['sim_FCTR']                 + df_all['sim_FGEV']
 
-print (df_all)
+df_all.head()
+
+
+# ******************
+# ### Optional:
+# If you are unfamiliar with reading and using the netcdf file format that model and evaluation data are provided, you can save data different formats. The next cell of code will save the pre-processed data in `.csv`, or comma-seperated file format. 
+# 
+
+# In[ ]:
+
+
+csv_dir = "/home/user/preprocessed_data/"
+
+#create the directory if it does not exist:
+if not os.path.isdir(csv_dir):
+    os.mkdir(csv_dir)
+
+csv_out = os.path.join(csv_dir, "preprocessed_"+neon_site+"_"+year+".csv")
+df_all.to_csv(csv_out,index=False)
 
 
 # ****
 # ### 3.2 Plotting latent heat flux
 
 # #### 3.2.1 Daily Timeseries
-# This creates a time-series plot comparing daily average latent heat flux from observations (NEON) and simulations (CLM). To start, we need calculate the daily averages. Run the below cells of code in order to create the plot.
+# This creates a time-series plot comparing daily average latent heat flux from observations (NEON) and simulations (CLM). To start, we need calculate the daily averages. Run the below cells of code to create the averages and plot.
 # 
 # *First, we need to extract year, month, day and hour from time column*
 
-# In[27]:
+# In[ ]:
 
 
 #-- extract year, month, day, hour information from time
@@ -353,29 +369,25 @@ df_all['hour'] = df_all['time'].dt.hour
 
 # *Next, calculate daily averages*
 
-# In[28]:
+# In[ ]:
 
 
 df_daily = df_all.groupby(['year','month','day']).mean().reset_index()
 df_daily['time']=pd.to_datetime(df_daily[["year", "month", "day"]])
 
 
-# In[29]:
+# Using the daily averages, we will create a plot using Python's [matplotlib package](https://matplotlib.org/)
+# 
+# *Run the below cell to create the plot:*
+
+# In[ ]:
 
 
 plot_var = 'EFLX_LH_TOT'
 sim_var = 'sim_'+plot_var
 
 plot_var_desc = "Latent Heat Flux"
-plot_var_unit= "Wm-2"
-
-
-# Using the daily averages, we will create a plot using Python's [matplotlib package:](https://matplotlib.org/)
-# 
-# *Run the below cell to create the plot:*
-
-# In[30]:
-
+plot_var_unit= "W m$^{-2}$"
 
 plt.figure(num=None, figsize=(13, 5),  facecolor='w', edgecolor='k')
         
@@ -389,13 +401,13 @@ plt.title(year+" "+neon_site, fontweight='bold',fontsize=17)
 plt.show()
 
 
-# Are the simulations and observations similar? 
+# #### **Are the simulations and observations in the plot similar?**
 # 
 # It is important to also look at variability, as this gives us an indication of when and where simulations are outside the range of observed values. 
 # 
 # *Let's explore variability by adding the daily standard deviation as a shaded area to the plot*
 
-# In[31]:
+# In[ ]:
 
 
 df_daily_std = df_all.groupby(['year','month','day']).std().reset_index()
@@ -406,8 +418,8 @@ plt.figure(num=None, figsize=(13, 5),  facecolor='w', edgecolor='k')
 plt.plot ( df_daily.time, df_daily[plot_var], marker = 'o' , color = 'b',label="NEON")
 plt.plot ( df_daily.time, df_daily[sim_var], marker = 'o' , color = 'r',label="CLM")
 
-plt.fill_between(df_daily.time, df_daily.EFLX_LH_TOT-df_daily_std.EFLX_LH_TOT, df_daily.EFLX_LH_TOT+df_daily_std.EFLX_LH_TOT ,alpha=0.1, color = 'b')
-plt.fill_between(df_daily.time, df_daily.sim_EFLX_LH_TOT-df_daily_std.sim_EFLX_LH_TOT, df_daily.sim_EFLX_LH_TOT+df_daily_std.sim_EFLX_LH_TOT ,alpha=0.1, color = 'r')
+plt.fill_between(df_daily.time, df_daily[plot_var]-df_daily_std[plot_var], df_daily[plot_var]+df_daily_std[plot_var] ,alpha=0.1, color = 'b')
+plt.fill_between(df_daily.time, df_daily[sim_var]-df_daily_std[sim_var], df_daily[sim_var]+df_daily_std[sim_var] ,alpha=0.1, color = 'r')
 
 plt.legend()
 plt.xlabel('Time', fontsize=17)
@@ -416,12 +428,12 @@ plt.title(year+" "+neon_site, fontweight='bold',fontsize=17)
 plt.show()
 
 
-# The standard deviation allows us to see when CLM under-predicts or over-predicts the NEON tower observations.
+# The standard deviation allows us to see when CLM underpredicts or overpredicts the NEON tower observations.
 # 
 # #### **Questions to consider:**
 # 
 # 1. When is the latent heat hlux highest at this site? When is it lowest? <br>
-# 1. Does CLM match NEON tower observations? <br>
+# 1. Do fluxes simulated by CLM fall within the range of NEON tower observation variability? <br>
 # 1. What times of year does CLM shows the best and worst performance in predicting latent heat flux ? <br>
 
 # *****
@@ -431,7 +443,7 @@ plt.show()
 # 
 # *Run the cell below to calculate monthly averages*
 
-# In[32]:
+# In[ ]:
 
 
 df_monthly = df_all.groupby(['year','month']).mean().reset_index()
@@ -443,7 +455,7 @@ df_monthly['time']=pd.to_datetime(df_monthly[["year", "month","day"]])
 # 
 # *Run the cell below to create the plot*
 
-# In[44]:
+# In[ ]:
 
 
 def line_format(label):
@@ -465,6 +477,9 @@ df_monthly[['time','sim_FCEV','sim_FCTR','sim_FGEV']].plot.bar ( x= 'time',stack
 
 ax.set_xticklabels(map(line_format, df_monthly.time))
 
+#set labels for the legend
+ax.legend(["NEON Latent Heat Flux", "Canopy Evaporation", "Canopy Transpiration", "Ground Evaporation"]);
+
 plt.xlabel('Time')
 plt.ylabel(plot_var_desc+" ["+plot_var_unit+"]")
         
@@ -477,15 +492,15 @@ plt.show()
 # #### **Questions to consider:**
 # 
 # 1. Which months does CLM overestimate and underestimate observed latent heat fluxes for this site? 
-# 1. What times of year is canopy transpiration (`FCTR`) the largest contributor to the total CLM latent heat flux?
-# 1. What times of year are canopy evaporation (`FCEV`) and ground evaporation (`FGEV`) important contributors to the total CLM latent heat flux? 
+# 1. What times of year is *canopy transpiration* the largest contributor to the total CLM latent heat flux?
+# 1. What times of year are *canopy evaporation* and *ground evaporation* important contributors to the total CLM latent heat flux? 
 # 1. What is the dominant component flux when CLM overestimates observed latent heat fluxes? When CLM underestimates latent heat fluxes?
 # ****
 
 # #### 3.2.3 Monthly Averages & Component Fluxes: Proportional Contributions
-# It might be easier to see the proportional contributions of transpiration and evaporation fluxes to total latent heat flux. We can look at a more advanced plot with two y-axes that helps to illustrate the absolute values of monthly latent heat fluxes and the proportion of component fluxes each month. 
+# It might be easier to see the proportional contributions of transpiration and evaporation fluxes to total latent heat flux. The code below makes a more advanced plot with two y-axes that helps to illustrate the absolute values of monthly latent heat fluxes and the proportion of component fluxes each month. 
 
-# In[34]:
+# In[ ]:
 
 
 #-- calculate the percentage of total latent heat flux
@@ -518,11 +533,11 @@ plt.show()
 # #### 3.2.4 Annual and Seasonal Correlations
 # Scatter plots can help to describe the relationship between latent heat flux and the component transpiration and evaporation fluxes. We can look at these relationships using data from CLM simulations.
 # 
-# First, we plot relationships for annual average data.
+# First, plot annual average relationships.
 # 
 # *Run the cells below to first define a generic function that plot scatter diagrams and add a regression line, and then to generate the plots.*
 
-# In[35]:
+# In[ ]:
 
 
 #Defining generic function for scatter plots
@@ -534,7 +549,7 @@ def detailed_scatter (x, y, color):
     plt.legend(fontsize=13)
 
 
-# In[36]:
+# In[ ]:
 
 
 #Generating plots
@@ -568,7 +583,7 @@ plt.show()
 # 
 # *Run the cell below to generate scatter plots by season*
 
-# In[37]:
+# In[ ]:
 
 
 df_daily['season'] = ((df_daily['month']%12+3)//3).map({1:'DJF', 2: 'MAM', 3:'JJA', 4:'SON'})
@@ -663,23 +678,38 @@ plt.show()
 # --------
 # #### 3.2.5 Average Diel Cycle
 # 
-# Latent heat flux also changes throughout the day. Does CLM capture the diel cycle that NEON observes? We can compare the average diel cycle from NEON observations and CLM simulations to find out.
+# Latent heat flux also changes throughout the day. Does CLM capture the diel cycle that NEON observes? We can compare the average diel cycle from NEON observations and CLM simulations to find out. 
 # 
+# The `time` variable in the data is in Greenwich Mean Time (GMT). In the below plots, we adjust for the timezone so that the data are centered on local noon.
+# 
+# 
+# *Run the cell below to convert to local time*
+# 
+
+# In[ ]:
+
+
+tzone_shift = ds_eval.TimeDiffUtcLt
+#convert to local time
+df_all['local_time']= df_all['time'] + datetime.timedelta(hours=int(tzone_shift))
+
+df_all['local_hour'] = df_all['local_time'].dt.hour
+
+
 # *Run the cells below to calculate the annual average diel cycle and to generate a plot*
 
-# In[38]:
+# In[ ]:
 
 
 # Calculate annual average diel cycle and bias
-diel_df_mean = df_all.groupby('hour').mean().reset_index()
-diel_df_std = df_all.groupby('hour').std().reset_index()
+diel_df_mean = df_all.groupby('local_hour').mean().reset_index()
+diel_df_std = df_all.groupby('local_hour').std().reset_index()
 
 diel_df_mean['EFLX_LH_TOT_bias'] = diel_df_mean['sim_EFLX_LH_TOT']- diel_df_mean['EFLX_LH_TOT']
-
 diel_df_mean.head()
 
 
-# In[39]:
+# In[ ]:
 
 
 # Plot annual average diel cycle and bias
@@ -687,32 +717,33 @@ plt.figure(num=None, figsize=(13, 9),  facecolor='w', edgecolor='k')
         
 plt.subplot(2, 1, 1)  
         
-plt.plot ( diel_df_mean.hour, diel_df_mean['EFLX_LH_TOT'], marker = 'o' , color = 'b',label="NEON")
-plt.plot ( diel_df_mean.hour, diel_df_mean['sim_EFLX_LH_TOT'], marker = 'o' , color = 'r',label="CLM")
+plt.plot ( diel_df_mean.local_hour, diel_df_mean[plot_var], marker = 'o' , color = 'b',label="NEON")
+plt.plot ( diel_df_mean.local_hour, diel_df_mean[sim_var], marker = 'o' , color = 'r',label="CLM")
 
-plt.fill_between(diel_df_mean.hour, diel_df_mean.EFLX_LH_TOT-diel_df_std.EFLX_LH_TOT, diel_df_mean.EFLX_LH_TOT+diel_df_std.EFLX_LH_TOT ,alpha=0.1, color = 'b')
-plt.fill_between(diel_df_mean.hour, diel_df_mean.sim_EFLX_LH_TOT-diel_df_std.sim_EFLX_LH_TOT, diel_df_mean.sim_EFLX_LH_TOT+diel_df_std.sim_EFLX_LH_TOT ,alpha=0.1, color = 'r')
+plt.fill_between(diel_df_mean.local_hour, diel_df_mean[plot_var]-diel_df_std[plot_var], diel_df_mean[plot_var]+diel_df_std[plot_var] ,alpha=0.1, color = 'b')
+plt.fill_between(diel_df_mean.local_hour, diel_df_mean[sim_var]-diel_df_std[sim_var], diel_df_mean[sim_var]+diel_df_std[sim_var] ,alpha=0.1, color = 'r')
 plt.ylabel('Latent Heat Flux [Wm-2]', fontsize=16)
+plt.axvline(x=12, color = 'gray',linestyle='dashed',alpha=0.75)
 
 plt.title("Diurnal Cycle of Latent Heat Flux "+neon_site+" "+year, fontweight='bold')
 plt.legend()
 plt.subplot(4, 1, 3)  
 
 ax = plt.gca()    
-diel_df_mean.plot ( x= 'hour', y = 'EFLX_LH_TOT_bias' , marker = 'o' ,ax =ax , color = 'black',label='Bias')
-plt.xlabel('Hour', fontsize=18)
+diel_df_mean.plot ( x= 'local_hour', y = 'EFLX_LH_TOT_bias' , marker = 'o' ,ax =ax , color = 'black',label='Bias')
+plt.xlabel('Hour', fontsize=16)
 plt.ylabel('Bias', fontsize=16)
+plt.axvline(x=12, color = 'gray',linestyle='dashed',alpha=0.75)
+
 plt.show()
 
 
-# *Note that the above code plots a diel cycle that is not centered. We are working with NEON to add the time zone to the evaluation data so that we can more easily center these plots on local noon.*
-
-# ***
-# How do transpiration and evaporation components of latent heat flux change throughout the day? 
+# #### How do transpiration and evaporation components of latent heat flux change throughout the day? 
+# We can add a panel to the above plot that shows how CLM partitioned latent heat flux to find out. 
 # 
-# *Run the cells below to find out*
+# *Run the cells below to add a panel to the plot*
 
-# In[40]:
+# In[ ]:
 
 
 #Calculating diel cycle flux proportions
@@ -721,7 +752,7 @@ diel_df_mean ['sim_FCTR_perc']= diel_df_mean ['sim_FCTR']/(diel_df_mean ['sim_FC
 diel_df_mean ['sim_FGEV_perc']= diel_df_mean ['sim_FGEV']/(diel_df_mean ['sim_FCEV']+diel_df_mean ['sim_FCTR']+diel_df_mean ['sim_FGEV'])*100
 
 
-# In[46]:
+# In[ ]:
 
 
 #plotting diel cycl flux proportions
@@ -733,25 +764,25 @@ gs = gridspec.GridSpec(3, 1, height_ratios=[3, 1, 2])
 
 ax0 = plt.subplot(gs[0])
         
-ax0.plot ( diel_df_mean.hour, diel_df_mean['EFLX_LH_TOT'], marker = 'o' , color = 'b',label="NEON")
-ax0.plot ( diel_df_mean.hour, diel_df_mean['sim_EFLX_LH_TOT'], marker = 'o' , color = 'r',label="CLM")
+ax0.plot ( diel_df_mean.local_hour, diel_df_mean['EFLX_LH_TOT'], marker = 'o' , color = 'b',label="NEON")
+ax0.plot ( diel_df_mean.local_hour, diel_df_mean['sim_EFLX_LH_TOT'], marker = 'o' , color = 'r',label="CLM")
 
-ax0.fill_between(diel_df_mean.hour, diel_df_mean.EFLX_LH_TOT-diel_df_std.EFLX_LH_TOT, diel_df_mean.EFLX_LH_TOT+diel_df_std.EFLX_LH_TOT ,alpha=0.1, color = 'b')
-ax0.fill_between(diel_df_mean.hour, diel_df_mean.sim_EFLX_LH_TOT-diel_df_std.sim_EFLX_LH_TOT, diel_df_mean.sim_EFLX_LH_TOT+diel_df_std.sim_EFLX_LH_TOT ,alpha=0.1, color = 'r')
+ax0.fill_between(diel_df_mean.local_hour, diel_df_mean[plot_var]-diel_df_std[plot_var], diel_df_mean[plot_var]+diel_df_std[plot_var] ,alpha=0.1, color = 'b')
+ax0.fill_between(diel_df_mean.local_hour, diel_df_mean[sim_var]-diel_df_std[sim_var], diel_df_mean[sim_var]+diel_df_std[sim_var] ,alpha=0.1, color = 'r')
 plt.ylabel('Latent Heat Flux [Wm-2]', fontsize=16)
+
 plt.legend()
 plt.title("Diurnal Cycle of Latent Heat Flux "+neon_site+" "+year, fontweight='bold')
 
 ax1 = plt.subplot(gs[1])
-diel_df_mean.plot ( x= 'hour', y = 'EFLX_LH_TOT_bias' , marker = 'o' ,ax =ax1 , color = 'black',label='Bias')
+diel_df_mean.plot ( x= 'local_hour', y = 'EFLX_LH_TOT_bias' , marker = 'o' ,ax =ax1 , color = 'black',label='Bias')
 plt.xlabel('', fontsize=18)
 plt.ylabel('Bias', fontsize=16)
 
 ax2 = plt.subplot(gs[2])
-diel_df_mean[['hour','sim_FCEV','sim_FCTR','sim_FGEV']].plot.bar ( x= 'hour',stacked='True',ax=ax2,rot=0)
+diel_df_mean[['local_hour','sim_FCEV','sim_FCTR','sim_FGEV']].plot.bar ( x= 'local_hour',stacked='True',ax=ax2,rot=0)
 plt.ylabel('%Latent Heat Components', fontsize=16)
-plt.xlabel('Hour', fontsize=18)
-plt.legend(labels=["% Canopy Evaporation","% Canopy Transpiration","% Ground Evaporation"])
+plt.xlabel('Hour', fontsize=16)
 
 plt.tight_layout()
 
@@ -765,6 +796,6 @@ fig.show()
 # 1. Determined when transpiration and evaporation fluxes drive latent heat fluxes
 # 1. Learned how to average over different time periods and create different types of plots
 # 
-# #### If you would like to learn more advanced interactive visualization tools, please see the [tutorial coming soon].
+# #### If you would like to learn more advanced interactive visualization tools, please check back for an advanced tutorial that is coming soon!
 # You can also use this script to explore additional CLM and NEON data by changing the variables in section 3 of this script.
 # 
